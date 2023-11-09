@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link as Anchor } from "react-router-dom";
 import Card from '../components/Card';
+import { api, apiURL, endpoints } from '../utils/api';
 
 export default function Planets() {
   const [count, setCount] = useState(1);
@@ -33,13 +34,13 @@ export default function Planets() {
   // GETTING PLANETS RESULTS:
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/planets/?page=${count}`)
+    api.get(apiURL + endpoints.read_planets + `/?page=${count}`)
       .then((res) => setCombinedResults(res.data.results))
       .catch((error) => console.log(error));
   }, [count]);
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/planets/?search=${searchTerm}`)
+    api.get(apiURL + endpoints.read_planets + `/?search=${searchTerm}`)
       .then((res) => setCombinedResults(res.data.results))
       .catch((error) => console.log(error));
   }, [searchTerm]);

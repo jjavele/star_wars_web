@@ -3,39 +3,6 @@ import axios from "axios";
 import { Link as Anchor } from "react-router-dom"
 
 export default function Home() {
-  const [people, setPeople] = useState();
-  const [planets, setPlanets] = useState();
-  const [starships, setstarships] = useState()
-
-  useEffect(() => {
-    axios("https://swapi.dev/api/people/")
-      .then(res => {
-        setPeople(res.data.results);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios("https://swapi.dev/api/planets/")
-      .then(res => {
-        setPlanets(res.data.results);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios("https://swapi.dev/api/vehicles/")
-      .then(res => {
-        setstarships(res.data.results);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div className="flex flex-col w-full justify-around items-center bg-[url('/src/assets/images/background.jpg')] bg-cover pt-4">

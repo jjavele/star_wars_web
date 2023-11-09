@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Link as Anchor } from 'react-router-dom';
+import { api, apiURL, endpoints } from '../utils/api';
 
 
 const PlanetDetail = () => {
@@ -9,7 +10,7 @@ const PlanetDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/planets/${id}/`)
+    api.get(apiURL + endpoints.read_planets + `/${id}/`)
       .then((res) => setPlanet(res.data))
       .catch((error) => console.log(error));
   }, [id]);

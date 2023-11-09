@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link as Anchor } from "react-router-dom";
 import Card from '../components/Card';
+import { api, apiURL, endpoints } from '../utils/api';
 
 export default function Starships() {
   const [count, setCount] = useState(1);
@@ -33,13 +34,13 @@ export default function Starships() {
   // GETTING STARSHIP RESULTS:
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/starships/?page=${count}`)
+    api.get(apiURL + endpoints.read_starships + `/?page=${count}`)
       .then((res) => setCombinedResults(res.data.results))
       .catch((error) => console.log(error));
   }, [count]);
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/starships/?search=${searchTerm}`)
+    api.get(apiURL + endpoints.read_starships + `/?search=${searchTerm}`)
       .then((res) => setCombinedResults(res.data.results))
       .catch((error) => console.log(error));
   }, [searchTerm]);

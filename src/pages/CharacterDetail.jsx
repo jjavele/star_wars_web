@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { api, apiURL, endpoints } from '../utils/api';
 
 const CharacterDetail = () => {
   const [character, setCharacter] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/people/${id}/`)
+    api(apiURL + endpoints.read_characters + `/${id}/`)
       .then((res) => setCharacter(res.data))
       .catch((error) => console.log(error));
   }, [id]);

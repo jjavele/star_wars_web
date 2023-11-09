@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { api, apiURL, endpoints } from '../utils/api';
 
 const StarshipDetail = () => {
   const [starship, setStarship] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    axios(`https://swapi.dev/api/starships/${id}/`)
+    api.get(apiURL + endpoints.read_starships + `/${id}/`)
       .then((res) => setStarship(res.data))
       .catch((error) => console.log(error));
   }, [id]);
