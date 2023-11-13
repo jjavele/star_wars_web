@@ -9,7 +9,7 @@ export default function NavBar() {
       </Anchor>
       <div className="flex justify-center items-center w-full h-[5vh] bg-gray-900">
         <div className="flex px-4 font-bold text-[#fff]">
-            <Anchor to={`/characters/${1}`}> 
+            <Anchor to={`/characters/1`}> 
               <p className="px-4 hover:font-bold hover:border-[#FFE81F] hover:text-[#FFE81F] hover:border p-1">Characters</p>
             </Anchor>
             <Anchor to={`/planets/${1}`}>

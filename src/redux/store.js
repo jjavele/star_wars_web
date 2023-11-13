@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filterReducer from "./reducers/filterReducer";
+import characterReducer from "./reducers/characterReducer";
+import planetReducer from "./reducers/planetReducer";
+import starshipReducer from "./reducers/starshipReducer";
 
 export const store = configureStore ({
     reducer: {
-        filter: filterReducer,
+        characters: characterReducer,
+        planets: planetReducer,
+        starships: starshipReducer,
     }
 })
