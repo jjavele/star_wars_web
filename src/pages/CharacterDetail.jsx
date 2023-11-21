@@ -1,20 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { api, apiURL, endpoints } from '../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import {NextUIProvider} from "@nextui-org/react";
+import characterActions from '../redux/actions/characterActions';
+import {CircularProgress} from "@nextui-org/react";
 
 const CharacterDetail = () => {
-  const [character, setCharacter] = useState(null);
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const character = useSelector((state) => state.characters.character)
+  console.log(character)
 
   useEffect(() => {
-    api(apiURL + endpoints.read_characters + `/${id}/`)
-      .then((res) => setCharacter(res.data))
-      .catch((error) => console.log(error));
+    const fetchingData = async () => {
+      try {
+        setIsLoading(true);
+          await dispatch(characterActions.renderCharacterDetail(id));
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchingData();
   }, [id]);
 
   if (!character) {
-    return <div className="text-[#FFF] text-xl flex flex-wrap w-full min-h-[85vh] justify-center items-center bg-[url('/src/assets/images/background.jpg')] bg-cover">Cargando...</div>;
+    return <NextUIProvider>
+    {isLoading &&
+    <div className="flex w-full min-h-[85vh] justify-center items-center">
+      <CircularProgress classNames={{
+      svg: "w-28 h-28 drop-shadow-md",
+      indicator: "stroke-white",
+      track: "stroke-white/10",
+      value: "text-3xl font-semibold text-white",
+      }} aria-label="Loading" size="lg" label="Loading..." /></div>}
+      </NextUIProvider>
   }
 
   return (
